@@ -1,0 +1,33 @@
+CREATE DATABASE [StudentCourses]
+GO
+
+CREATE TABLE [StudentCourses].[dbo].[COURSES](
+	[COURSE_ID] [int] NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	[NAME] [nchar](50) NOT NULL,
+	[DESCRIPTION] [nchar](50) NULL
+
+	)
+--SET IDENTITY_INSERT [StudentCourses].[dbo].[COURSES] ON
+
+CREATE TABLE [StudentCourses].[dbo].[GROUPS](
+	[GROUP_ID] [int] NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	[COURSE_ID] [int] NOT NULL,
+	[NAME] [nchar](50) NOT NULL
+	)
+--SET IDENTITY_INSERT [StudentCourses].[dbo].[GROUPS] ON
+
+	CREATE TABLE [StudentCourses].[dbo].[STUDENTS](
+	[STUDENT_ID] [int] NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	[GROUP_ID] [int] NOT NULL,
+	[FIRST_NAME] [nchar](25) NOT NULL,
+	[LAST_NAME] [nchar](25) NOT NULL,
+	)
+--SET IDENTITY_INSERT [StudentCourses].[dbo].[STUDENTS] ON
+
+ALTER TABLE [StudentCourses].[dbo].[GROUPS] ADD CONSTRAINT [FK_GROUPS_COURSES] FOREIGN KEY([COURSE_ID])
+REFERENCES [StudentCourses].[dbo].[COURSES] ([COURSE_ID])
+GO
+
+ALTER TABLE [StudentCourses].[dbo].[STUDENTS] ADD CONSTRAINT [FK_STUDENTS_GROUPS] FOREIGN KEY([GROUP_ID])
+REFERENCES [StudentCourses].[dbo].[GROUPS] ([GROUP_ID])
+GO
